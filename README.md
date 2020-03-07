@@ -1,5 +1,11 @@
 # CodeSquad PS1
-Solution for Problem Statement 1 for AIDL 2020 conducted by [@unifynd](https://github.com/unifynd)
+Solution for Problem Statement 1 for AIDL 2020 conducted by [@unifynd](https://github.com/unifynd) technologies.
+
+## Problem
+Given images of bills/invoices, the task was to perform the following 3 operations:
+  * Edge detection, cropping, flattening, enhancement of cropped image and compression.
+  * Extracting text from the processed image.
+  * The confidence score for the image to text conversion.
 
 ## Build
 
@@ -14,6 +20,9 @@ $ cd codesquad-PS1
 $ npm install
 $ npx react-native run-android --no-jetifier
 ```
+
+## Screens
+<a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/Bft09zp/photo6278161801069832522.jpg" alt="photo6278161801069832522" border="0" /></a> <a href="https://imgbb.com/"><img src="https://i.ibb.co/M8GGbP7/photo6278311635298920670.jpg" width="200" alt="photo6278311635298920670" border="0" /></a> <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/w0mvNRr/photo6278311635298920671.jpg" alt="photo6278311635298920671" border="0" /></a> <a href="https://imgbb.com/"><img src="https://i.ibb.co/vj4PH8m/photo6278311635298920672.jpg" width="200" alt="photo6278311635298920672" border="0" /></a> <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/ph8dvfT/photo6278311635298920673.jpg" alt="photo6278311635298920673" border="0" /></a>
 
 ## Credits
 Special thanks to [react-native-document-scanner](https://github.com/Woonivers/react-native-document-scanner#readme) & [react-native-perspective-image-cropper](https://github.com/Michaelvilleneuve/react-native-perspective-image-cropper)
