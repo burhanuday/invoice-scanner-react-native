@@ -1,0 +1,56 @@
+{
+  "_from": "react-native-perspective-image-cropper",
+  "_id": "react-native-perspective-image-cropper@0.4.4",
+  "_inBundle": false,
+  "_integrity": "sha512-cTR695lClNyH8X97NPbkl9h2RGgKA0Ao+jWDH2HW4x8MJ+mm/psdsctXFbJxhU5Lw0Ev1k1a3jBVaJH+AlG+Tw==",
+  "_location": "/react-native-perspective-image-cropper",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "react-native-perspective-image-cropper",
+    "name": "react-native-perspective-image-cropper",
+    "escapedName": "react-native-perspective-image-cropper",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-perspective-image-cropper/-/react-native-perspective-image-cropper-0.4.4.tgz",
+  "_shasum": "f636e67730027f2a25d6d2e5908450ca9627ca9b",
+  "_spec": "react-native-perspective-image-cropper",
+  "_where": "E:\\Burhan\\Projects\\scanaidl",
+  "author": {
+    "name": "Michaël Villeneuve"
+  },
+  "bugs": {
+    "url": "https://github.com/Michaelvilleneuve/react-native-perspective-image-cropper/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "React native library allowing you to make custom crop and perspective corrections on photos",
+  "homepage": "https://github.com/Michaelvilleneuve/react-native-perspective-image-cropper#readme",
+  "keywords": [
+    "react-native",
+    "scanner",
+    "crop"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "react-native-perspective-image-cropper",
+  "peerDependencies": {
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.44.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Michaelvilleneuve/react-native-perspective-image-cropper.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.4.4"
+}
