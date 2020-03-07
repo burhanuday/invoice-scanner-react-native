@@ -34,6 +34,10 @@ import ImageSize from 'react-native-image-size';
 import ImageRotate from 'react-native-image-rotate';
 import RNFetchBlob from 'rn-fetch-blob';
 
+const SERVER_URL = 'http://172.16.100.47:5000';
+const WHITE_BACKGROUND = '/white_background';
+const WHITE_BACKGROUND_URL = SERVER_URL + WHITE_BACKGROUND;
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -67,10 +71,10 @@ class App extends Component {
       console.log('after data is print');
 
       if (data.apiCallRequired === 'y') {
-        console.log('sending a request');
+        console.log('sending a request', WHITE_BACKGROUND_URL);
         RNFetchBlob.fetch(
           'POST',
-          'http://172.16.100.47:5000/white_background',
+          WHITE_BACKGROUND_URL,
           {
             'Content-Type': 'multipart/form-data',
           },
@@ -343,10 +347,10 @@ class App extends Component {
               console.log('after data is print');
 
               if (data.unchangedFile) {
-                console.log('sending a request');
+                console.log('sending a request', WHITE_BACKGROUND_URL);
                 RNFetchBlob.fetch(
                   'POST',
-                  'http://172.16.100.47:5000/white_background',
+                  WHITE_BACKGROUND_URL,
                   {
                     'Content-Type': 'multipart/form-data',
                   },
