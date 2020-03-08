@@ -36,18 +36,22 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 const SERVER_URL = 'http://172.16.100.47:5000';
 const WHITE_BACKGROUND = '/white_background';
+const WATERMARK = '/watermark';
 const WHITE_BACKGROUND_URL = SERVER_URL + WHITE_BACKGROUND;
+const WATERMARK_URL = SERVER_URL + WATERMARK;
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
+    this.myRef2 = React.createRef();
     this.state = {
       imageSelected: false,
       cropComplete: false,
       showCam: true,
       ocrText: '',
       flash: false,
+      itemKey: 1,
     };
   }
 
@@ -117,6 +121,7 @@ class App extends Component {
               rectangleCoordinates: data.rectangleCoordinates,
               showCam: false,
               imageSelected: true,
+              unchangedFile: data.unchangedFile,
             });
           })
           // Something went wrong:
@@ -201,6 +206,7 @@ class App extends Component {
             rectangleCoordinates: data.rectangleCoordinates,
             showCam: false,
             imageSelected: true,
+            unchangedFile: data.unchangedFile,
           });
         });
       }
@@ -255,7 +261,7 @@ class App extends Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const image = response.uri;
-
+        console.log('image', image);
         // You can also display the image using data:
         // const source = {uri: 'data:image/jpeg;base64,' + response.data};
         const source = {uri: response.data};
@@ -309,6 +315,7 @@ class App extends Component {
                 console.log(filePath);
                 RNFS.writeFile(filePath, `${this.state.image}`, 'base64')
                   .then(res => {
+                    console.log('after file is saved, do ocr');
                     this.detectText('file://' + filePath);
                   })
                   .catch(err => {
@@ -346,7 +353,7 @@ class App extends Component {
               console.log(data);
               console.log('after data is print');
 
-              if (data.unchangedFile) {
+              if (data.apiCallRequired === 'y') {
                 console.log('sending a request', WHITE_BACKGROUND_URL);
                 RNFetchBlob.fetch(
                   'POST',
@@ -393,6 +400,7 @@ class App extends Component {
                       rectangleCoordinates: data.rectangleCoordinates,
                       showCam: false,
                       imageSelected: true,
+                      unchangedFile: data.unchangedFile,
                     });
                   })
                   // Something went wrong:
@@ -474,11 +482,12 @@ class App extends Component {
                     rectangleCoordinates: data.rectangleCoordinates,
                     showCam: false,
                     imageSelected: true,
+                    unchangedFile: data.unchangedFile,
                   });
                 });
               }
             }}
-            overlayColor="rgba(255,130,0, 0.7)"
+            overlayColor="rgba(20,190,210, 0.6)"
             enableTorch={this.state.flash}
             brightness={0.3}
             saturation={1}
@@ -582,6 +591,7 @@ class App extends Component {
             {console.log('rendered')}
             <View style={{height: 30}} />
             <CustomCrop
+              //key={this.state.itemKey}
               style={{
                 flex: 0,
                 aspectRatio: 1,
@@ -613,22 +623,66 @@ class App extends Component {
                 borderRadius: 12,
               }}
               onPress={() => {
-                ImageRotate.rotateImage(
-                  this.state.initialImage,
-                  -90,
-                  uri => {
-                    console.log('from rotate', uri);
-                    //this.customCrop = React.createRef();
-                    this.setState({
-                      initialImage: uri,
-                      imageWidth: this.state.imageHeight,
-                      imageHeight: this.state.imageWidth,
-                    });
+                console.log('to send this', this.state.unchangedFile);
+
+                RNFetchBlob.fetch(
+                  'POST',
+                  WATERMARK_URL,
+                  {
+                    'Content-Type': 'multipart/form-data',
                   },
-                  error => {
-                    console.log(error);
-                  },
-                );
+                  [
+                    {
+                      name: 'file',
+                      filename: 'file.png',
+                      type: 'image/*',
+                      data: RNFetchBlob.wrap(this.state.unchangedFile),
+                    },
+                  ],
+                )
+                  .then(response => {
+                    let status = response.info().status;
+                    console.log('res', Object.keys(response));
+                    //console.log('res', response.data);
+                    //console.log('response', response.json());
+
+                    /* if (status == 200) {
+                      // the conversion is done in native code
+                      let base64Str = response.base64();
+                      // the following conversions are done in js, it's SYNC
+                      let text = response.text();
+                      let json = response.json();
+                      //console.log('res', json, text);
+                    } else {
+                      // handle other status codes
+                    }
+
+                    const jsonRes = response.json(); */
+                    const filePath = `${
+                      RNFS.ExternalStorageDirectoryPath
+                    }/Documents/${new Date().toISOString()}.jpg`.replace(
+                      /:/g,
+                      '-',
+                    );
+                    console.log(filePath);
+                    RNFS.writeFile(filePath, `${response.data}`, 'base64')
+                      .then(res => {
+                        console.log('assaved');
+                        this.setState({
+                          initialImage: filePath,
+                          itemKey: 10,
+                        });
+                        // this.myRef.forceUpdate();
+                      })
+                      .catch(err => {
+                        console.log(err.message, err.code);
+                      });
+                  })
+                  // Something went wrong:
+                  .catch((errorMessage, statusCode) => {
+                    // error handling
+                    console.log('error', errorMessage, statusCode);
+                  });
               }}>
               <Text
                 style={{
@@ -638,7 +692,7 @@ class App extends Component {
                   color: 'white',
                   letterSpacing: 2,
                 }}>
-                ROTATE
+                REMOVE WATERMARK
               </Text>
             </TouchableOpacity>
             <TouchableOpacity

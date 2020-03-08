@@ -21,6 +21,11 @@ $ npm install
 $ npx react-native run-android --no-jetifier
 ```
 
+4. Run the `flask` server from the `flask-server` folder
+```bash
+$ python app.py
+```
+
 ## Screens
 <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/Bft09zp/photo6278161801069832522.jpg" alt="photo6278161801069832522" border="0" /></a> <a href="https://imgbb.com/"><img src="https://i.ibb.co/M8GGbP7/photo6278311635298920670.jpg" width="200" alt="photo6278311635298920670" border="0" /></a> <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/w0mvNRr/photo6278311635298920671.jpg" alt="photo6278311635298920671" border="0" /></a> <a href="https://imgbb.com/"><img src="https://i.ibb.co/vj4PH8m/photo6278311635298920672.jpg" width="200" alt="photo6278311635298920672" border="0" /></a> <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/ph8dvfT/photo6278311635298920673.jpg" alt="photo6278311635298920673" border="0" /></a>
 
