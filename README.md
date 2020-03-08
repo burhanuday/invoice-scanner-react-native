@@ -18,7 +18,13 @@ Given images of bills/invoices, the task was to perform the following 3 operatio
 $ git clone https://github.com/burhanuday/codesquad-PS1
 $ cd codesquad-PS1
 $ npm install
+```
+4. Move the modified versions of the libraries from the `modified_open_source_libs` to the `node_modules` folder
+
+5. Run development build (Android SDK and adb tools are required to be installed)
+```bash
 $ npx react-native run-android --no-jetifier
+$ npx react-native run-ios
 ```
 
 4. Run the `flask` server from the `flask-server` folder
