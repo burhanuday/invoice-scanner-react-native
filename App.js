@@ -20,6 +20,7 @@ import {
   Dimensions,
   NativeEventEmitter,
   NativeModules,
+  ActivityIndicator,
 } from 'react-native';
 
 import Permissions from 'react-native-permissions';
@@ -52,6 +53,8 @@ class App extends Component {
       ocrText: '',
       flash: false,
       itemKey: 1,
+      showText: false,
+      loading: false,
     };
   }
 
@@ -76,6 +79,7 @@ class App extends Component {
 
       if (data.apiCallRequired === 'y') {
         console.log('sending a request', WHITE_BACKGROUND_URL);
+        this.setState({loading: true});
         RNFetchBlob.fetch(
           'POST',
           WHITE_BACKGROUND_URL,
@@ -122,6 +126,7 @@ class App extends Component {
               showCam: false,
               imageSelected: true,
               unchangedFile: data.unchangedFile,
+              loading: false,
             });
           })
           // Something went wrong:
@@ -271,6 +276,14 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.showText) {
+      return (
+        <>
+          <Text>{this.state.ocrText}</Text>
+        </>
+      );
+    }
+
     if (this.state.cropComplete) {
       return (
         <>
@@ -506,6 +519,22 @@ class App extends Component {
             resizeMode="contain"
           />
 
+          {this.state.loading ? (
+            <ActivityIndicator
+              style={{
+                position: 'absolute',
+                bottom: 210,
+                alignItems: 'center',
+                justifyContent: 'center',
+                alignContent: 'center',
+                textAlign: 'center',
+                marginLeft: 170,
+              }}
+              size="large"
+              color="lightseagreen"
+            />
+          ) : null}
+
           <TouchableOpacity
             onPress={() => this.setState({flash: !this.state.flash})}
             style={{
@@ -668,9 +697,11 @@ class App extends Component {
                     RNFS.writeFile(filePath, `${response.data}`, 'base64')
                       .then(res => {
                         console.log('assaved');
+                        this.detectText('file://' + filePath);
                         this.setState({
                           initialImage: filePath,
                           itemKey: 10,
+                          showText: true,
                         });
                         // this.myRef.forceUpdate();
                       })
