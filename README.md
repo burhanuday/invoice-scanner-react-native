@@ -32,6 +32,14 @@ $ npx react-native run-ios
 $ python app.py
 ```
 
+### For Mac
+1. Follow the instructions mentioned on [Getting Started](https://reactnative.dev/docs/getting-started) on React Native documentation
+
+2. Download the project zip from [here](https://drive.google.com/drive/folders/10gUGSfVYNPMP7aw4T8nfkrQkMXGxzV2m?usp=sharing)
+
+3. Edit the `sdk.dir` statement with the SDK path in the `<extracted-folder>/android/local.properties` file, for your machine.
+
+4. Run the app with `npx react-native run-android --no-jetifier`
 ## Screens
 <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/Bft09zp/photo6278161801069832522.jpg" alt="photo6278161801069832522" border="0" /></a> <a href="https://imgbb.com/"><img src="https://i.ibb.co/M8GGbP7/photo6278311635298920670.jpg" width="200" alt="photo6278311635298920670" border="0" /></a> <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/w0mvNRr/photo6278311635298920671.jpg" alt="photo6278311635298920671" border="0" /></a> <a href="https://imgbb.com/"><img src="https://i.ibb.co/vj4PH8m/photo6278311635298920672.jpg" width="200" alt="photo6278311635298920672" border="0" /></a> <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/ph8dvfT/photo6278311635298920673.jpg" alt="photo6278311635298920673" border="0" /></a>
 
