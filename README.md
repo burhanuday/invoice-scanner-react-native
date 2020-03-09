@@ -39,7 +39,25 @@ $ python app.py
 
 3. Edit the `sdk.dir` statement with the SDK path in the `<extracted-folder>/android/local.properties` file, for your machine.
 
-4. Run the app with `npx react-native run-android --no-jetifier`
+4. If getting this error `Could not compile settings file 'android\settings.gradle`.
+First run `/usr/libexec/java_home -V` which will output something like the following:
+```bash
+Matching Java Virtual Machines (2):
+    13.0.1, x86_64:	"Java SE 13.0.1"	/Library/Java/JavaVirtualMachines/jdk-13.0.1.jdk/Contents/Home
+    1.8.0_242, x86_64:	"AdoptOpenJDK 8"	/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
+
+/Library/Java/JavaVirtualMachines/jdk-13.0.1.jdk/Contents/Home
+
+```
+Pick the version you want to be the default (1.8.0_242 the version of AdoptOpenJDK 8) then:
+```bash
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8.0_242`
+
+```
+
+
+
+5. Run the app with `npx react-native run-android --no-jetifier`
 ## Screens
 <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/Bft09zp/photo6278161801069832522.jpg" alt="photo6278161801069832522" border="0" /></a> <a href="https://imgbb.com/"><img src="https://i.ibb.co/M8GGbP7/photo6278311635298920670.jpg" width="200" alt="photo6278311635298920670" border="0" /></a> <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/w0mvNRr/photo6278311635298920671.jpg" alt="photo6278311635298920671" border="0" /></a> <a href="https://imgbb.com/"><img src="https://i.ibb.co/vj4PH8m/photo6278311635298920672.jpg" width="200" alt="photo6278311635298920672" border="0" /></a> <a href="https://imgbb.com/"><img width="200" src="https://i.ibb.co/ph8dvfT/photo6278311635298920673.jpg" alt="photo6278311635298920673" border="0" /></a>
 
