@@ -12,7 +12,7 @@
   "dependencies": {
     "@woonivers/react-native-document-scanner": "^2.1.1",
     "react": "16.9.0",
-    "react-native": "0.61.5",
+    "react-native": "0.62.3",
     "react-native-fs": "^2.16.6",
     "react-native-image-picker": "^2.3.1",
     "react-native-image-rotate": "^2.1.0",
