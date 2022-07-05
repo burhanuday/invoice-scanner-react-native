@@ -16,7 +16,7 @@ app = Flask(__name__)
 # def allowed_file(filename):
 #     return '.' in filename and \
 #            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-net = cv2.dnn.readNet("E:/Users/NM/envs/cv/aidl/opencv-text-detection/opencv-text-detection/frozen_east_text_detection.pb")
+net = cv2.dnn.readNet("/home/carstens/Documents/codesquad-PS1/flask-server/frozen_east_text_detection.pb")
 
 @app.route('/white_background', methods=['POST'])
 def upload_page():
@@ -244,4 +244,4 @@ def water_mark():
             # cv2.imshow("Text Detection", orig)
             # cv2.waitKey(0)
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", debug=True)

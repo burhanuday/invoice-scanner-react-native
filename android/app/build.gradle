@@ -1,5 +1,5 @@
 apply plugin: "com.android.application"
-
+apply plugin: 'com.google.gms.google-services'
 import com.android.build.OutputFile
 
 /**
@@ -120,15 +120,33 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
 
+    signingConfigs {
+            debug {
+                storeFile file('debug.keystore')
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
+            }
+        }
+    buildTypes {
+            debug {
+                signingConfig signingConfigs.debug
+            }
+            release {
+                // Caution! In production, you need to generate your own keystore file.
+                // see https://facebook.github.io/react-native/docs/signed-apk-android.
+                signingConfig signingConfigs.debug
+                minifyEnabled enableProguardInReleaseBuilds
+                proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            }
+        }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
     defaultConfig {
-        applicationId "com.scanaidl"
+        applicationId "com.scanaidl1"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -142,26 +160,8 @@ android {
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
-    signingConfigs {
-        debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-        }
-    }
-    buildTypes {
-        debug {
-            signingConfig signingConfigs.debug
-        }
-        release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-        }
-    }
+    buildToolsVersion buildToolsVersion
+    compileSdkVersion 28
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -182,9 +182,11 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"
     implementation project(path: ':openCVLibrary310')  // From node_modules
-    implementation 'com.google.firebase:firebase-analytics:17.2.3'
-    implementation 'com.google.firebase:firebase-ml-vision:17.2.3'
-
+    //implementation 'com.google.firebase:firebase-analytics:17.2.3'
+    //implementation 'com.google.mlkit.vision:24.1.0'
+    //implementation 'com.google.firebase:firebase-ml-vision:24.1.0'
+    implementation 'com.google.android.gms:play-services-vision:20.1.1'
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
@@ -193,6 +195,11 @@ dependencies {
         implementation jscFlavor
     }
 }
+// implementation 'com.android.support:design:27.1.0'
+// compile (project(':tipsi-stripe')) {
+//     exclude group: 'com.google.android.gms'
+//     exclude group: 'com.google.firebase'
+// }
 
 // Run this once to be able to run the application with BUCK
 // puts all compile dependencies into folder libs for BUCK to use
@@ -202,4 +209,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-apply plugin: 'com.google.gms.google-services'
+
